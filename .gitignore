@@ -41,5 +41,4 @@
 
 # Extra Hidden Dirs (Temp)
 vendor/
-map/
-textures/
+enemies/

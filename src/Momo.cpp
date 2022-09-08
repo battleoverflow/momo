@@ -1,26 +1,28 @@
 #include "include/Momo.h"
 #include "raymath.h"
 
-Momo::Momo() {
+Momo::Momo(int winWidth, int winHeight) {
     texture_width = momo_state.width / number_of_sprites;
-    // texture_width = momo_state.width / max_frames;
     texture_height = momo_state.height;
-}
 
-void Momo::set_screen_pos(int width, int height) {
     screen_pos = {
-        // (float) width / 2.0f - 4.0f * (0.5f * (float) momo_state.width / number_of_sprites),
-        (float) width / 2.0f - 4.0f * (0.5f * texture_width),
-        (float) height / 2.0f - 4.0f * (0.5f * texture_height)
+        static_cast<float>(winWidth) / 2.0f - texture_scale * (0.5f * texture_width),
+        static_cast<float>(winHeight) / 2.0f - texture_scale * (0.5f * texture_height)
     };
 }
 
 void Momo::tick(float delta_time) {
+    world_pos_last_frame = world_pos;
+
     // Key mapping for direction (k_direction)
     Vector2 k_direction{};
 
     if (IsKeyDown(KEY_W)) {
         k_direction.y -= 1.0;
+    }
+
+    if (IsKeyPressed(KEY_F)) {
+        ToggleFullscreen();
     }
 
     if (IsKeyDown(KEY_LEFT_SHIFT)) {
@@ -77,7 +79,22 @@ void Momo::tick(float delta_time) {
 
     // Momo
     Rectangle start{cur_frame * texture_width, 0.0f, dir_location * texture_width, texture_height};
-    Rectangle finish{screen_pos.x, screen_pos.y, 4.0f * texture_width, 4.0f * texture_height};
+    Rectangle finish{screen_pos.x, screen_pos.y, texture_scale * texture_width, texture_scale * texture_height};
 
     DrawTexturePro(momo_state, start, finish, Vector2{}, 0.0f, WHITE);
+}
+
+void Momo::undo_movement() {
+    world_pos = world_pos_last_frame;
+}
+
+Rectangle Momo::get_collision_rec() {
+
+    // Collision detection (rec)
+    return Rectangle {
+        screen_pos.x,
+        screen_pos.y,
+        texture_width * texture_scale,
+        texture_height * texture_scale
+    };
 }
