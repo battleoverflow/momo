@@ -6,8 +6,8 @@ Momo::Momo(int winWidth, int winHeight) {
     texture_height = momo_state.height;
 
     screen_pos = {
-        static_cast<float>(winWidth) / 2.0f - texture_scale * (0.5f * texture_width),
-        static_cast<float>(winHeight) / 2.0f - texture_scale * (0.5f * texture_height)
+        static_cast<float>(winWidth) / 2.0f - scale * (0.5f * texture_width),
+        static_cast<float>(winHeight) / 2.0f - scale * (0.5f * texture_height)
     };
 }
 
@@ -79,12 +79,12 @@ void Momo::tick(float delta_time) {
 
     // Momo
     Rectangle start{cur_frame * texture_width, 0.0f, dir_location * texture_width, texture_height};
-    Rectangle finish{screen_pos.x, screen_pos.y, texture_scale * texture_width, texture_scale * texture_height};
+    Rectangle finish{screen_pos.x, screen_pos.y, scale * texture_width, scale * texture_height};
 
     DrawTexturePro(momo_state, start, finish, Vector2{}, 0.0f, WHITE);
 }
 
-void Momo::undo_movement() {
+void Momo::stop_movement() {
     world_pos = world_pos_last_frame;
 }
 
@@ -94,7 +94,13 @@ Rectangle Momo::get_collision_rec() {
     return Rectangle {
         screen_pos.x,
         screen_pos.y,
-        texture_width * texture_scale,
-        texture_height * texture_scale
+        texture_width * scale,
+        texture_height * scale
     };
+}
+
+void Momo::unload_textures() {
+    UnloadTexture(momo_state);
+    UnloadTexture(momo_idle);
+    UnloadTexture(momo_run);
 }

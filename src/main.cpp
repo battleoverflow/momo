@@ -8,13 +8,16 @@
 #include "include/Log.h"
 #include "include/Environment.h"
 
+/*
+    TODO: FIX COLLISION DETECTION
+*/
+
 void game_loop(bool debug_mode) {
-    std::string momo_version = "0.0.6";
+    std::string momo_version = "0.0.7";
 
     const int width{1280}; // Window width
     const int height{720}; // Window height
     const char* title = "Momo's Quest"; // Window title
-    // const char* title = "Momo's Quest | v%s", momo_version.c_str(); // Window title
 
     // Initialize raylib window
     InitWindow(width, height, title);
@@ -34,6 +37,8 @@ void game_loop(bool debug_mode) {
     
     SetTargetFPS(60); // Sets the frames per second
 
+    printf("\nRunning Momo's Quest v%s", momo_version.c_str());
+
     // Checks if the window is open/closed
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -52,26 +57,14 @@ void game_loop(bool debug_mode) {
 
         momo.tick(GetFrameTime());
 
-        if (debug_mode) {
-            // TODO: Make FPS real-time, not hard set
-            DrawFPS(10, 10);
-
-            // Check for map boundaries
-            if (momo.get_world_pos().x < 0.0f ||
-                momo.get_world_pos().y < 0.0f ||
-                momo.get_world_pos().x + width > map.width * map_scale ||
-                momo.get_world_pos().y + height > map.height * map_scale) {
-
-                MomoWarning("OUT OF BOUNDS! :O\n");
-            }
-        } else {
-            // Check for map boundaries
-            if (momo.get_world_pos().x < 0.0f ||
-                momo.get_world_pos().y < 0.0f ||
-                momo.get_world_pos().x + width > map.width * map_scale ||
-                momo.get_world_pos().y + height > map.height * map_scale) {
-                
-                momo.undo_movement();
+        // Check for map boundaries
+        if (momo.get_world_pos().x < 0.0f ||
+            momo.get_world_pos().y < 0.0f ||
+            momo.get_world_pos().x + width > map.width * map_scale ||
+            momo.get_world_pos().y + height > map.height * map_scale) {
+            
+            if (debug_mode) {
+                momo.stop_movement();
                 MomoWarning("OUT OF BOUNDS! :O\n");
             }
         }
@@ -79,15 +72,25 @@ void game_loop(bool debug_mode) {
         // Environment collisions
         for (auto env : environment) {
             if (CheckCollisionRecs(env.get_collision_rec(momo.get_world_pos()), momo.get_collision_rec())) {
-                momo.undo_movement();
+
+                if (debug_mode) {
+                    momo.stop_movement();
+                }
             }
         }
-
 
         EndDrawing();
     }
 
     CloseWindow();
+
+    if (debug_mode) {
+        momo.unload_textures();
+        MomoInfo("Successfully unloaded textures");
+    } else {
+        momo.unload_textures();
+    }
+
 }
 
 int main(int argc, char* argv[]) {

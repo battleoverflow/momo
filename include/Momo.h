@@ -12,12 +12,13 @@ class Momo {
         // ~Momo();
         Vector2 get_world_pos() { return world_pos; }
         void tick(float delta_time);
-        void undo_movement();
+        void stop_movement();
+        void unload_textures();
         Rectangle get_collision_rec();
         bool debug_mode(bool debug_mode) {
 
             // I'm so sorry for anyone who sees this debug_mode()
-            // TODO: Fix this - doesn't properly log debug methods (this is really only useful sometimes, hmm)
+            // TODO: Fix this - doesn't properly log debug methods (this is really only useful sometimes)
             int argc{};
             char* argv[2];
 
@@ -61,5 +62,5 @@ class Momo {
         float number_of_sprites{10.0f};
         float texture_width{};
         float texture_height{};
-        float texture_scale{4.0f};
+        float scale{4.0f};
 };
