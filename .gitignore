@@ -39,6 +39,7 @@
 *.tsx
 *.tmx
 
-# Extra Hidden Dirs (Temp)
+# Extra Hidden Dirs/Files (Temp)
 vendor/
 enemies/
+Makefile
