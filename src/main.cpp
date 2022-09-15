@@ -12,13 +12,29 @@
     TODO: FIX COLLISION DETECTION
 */
 
+typedef enum GameScreen { MENU, GAME } GameScreen;
+
+// Default scene set to the main menu
+GameScreen currentScreen = MENU;
+
+std::string momo_version = "0.0.8"; // Game version
+const int width{1280}; // Window width
+const int height{720}; // Window height
+const char* title = "Momo's Quest"; // Window title
+
+void main_menu() {
+    ClearBackground(BLACK);
+    DrawText(momo_version.c_str(), 20, 600, 30, MAROON);
+    DrawText(title, 20, 650, 40, MAROON);
+    DrawText("Press Enter or Space to PLAY", width / 6, height / 3, 50, MAROON);
+
+    // Changes the scene when the enter key or space key is pressed
+    if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE)) {
+        currentScreen = GAME;
+    }
+}
+
 void game_loop(bool debug_mode) {
-    std::string momo_version = "0.0.7";
-
-    const int width{1280}; // Window width
-    const int height{720}; // Window height
-    const char* title = "Momo's Quest"; // Window title
-
     // Initialize raylib window
     InitWindow(width, height, title);
 
@@ -42,41 +58,49 @@ void game_loop(bool debug_mode) {
     // Checks if the window is open/closed
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(WHITE);
 
-        // Movement handler for the player
-        map_pos = Vector2Scale(momo.get_world_pos(), -1.0f);
+        switch (currentScreen) {
+            case MENU: {
+                main_menu();
+            } break;
+            case GAME: {
+                ClearBackground(WHITE);
 
-        // Map
-        DrawTextureEx(map, map_pos, 0.0, map_scale, WHITE);
+                // Movement handler for the player
+                map_pos = Vector2Scale(momo.get_world_pos(), -1.0f);
 
-        // Environment handler
-        for (auto env : environment) {
-            env.render(momo.get_world_pos());
-        }
+                // Map
+                DrawTextureEx(map, map_pos, 0.0, map_scale, WHITE);
 
-        momo.tick(GetFrameTime());
-
-        // Check for map boundaries
-        if (momo.get_world_pos().x < 0.0f ||
-            momo.get_world_pos().y < 0.0f ||
-            momo.get_world_pos().x + width > map.width * map_scale ||
-            momo.get_world_pos().y + height > map.height * map_scale) {
-            
-            if (debug_mode) {
-                momo.stop_movement();
-                MomoWarning("OUT OF BOUNDS! :O\n");
-            }
-        }
-
-        // Environment collisions
-        for (auto env : environment) {
-            if (CheckCollisionRecs(env.get_collision_rec(momo.get_world_pos()), momo.get_collision_rec())) {
-
-                if (debug_mode) {
-                    momo.stop_movement();
+                // Environment handler
+                for (auto env : environment) {
+                    env.render(momo.get_world_pos());
                 }
-            }
+
+                momo.tick(GetFrameTime());
+
+                // Check for map boundaries
+                if (momo.get_world_pos().x < 0.0f ||
+                    momo.get_world_pos().y < 0.0f ||
+                    momo.get_world_pos().x + width > map.width * map_scale ||
+                    momo.get_world_pos().y + height > map.height * map_scale) {
+                    
+                    if (debug_mode) {
+                        momo.stop_movement();
+                        MomoWarning("OUT OF BOUNDS! :O\n");
+                    }
+                }
+
+                // Environment collisions
+                for (auto env : environment) {
+                    if (CheckCollisionRecs(env.get_collision_rec(momo.get_world_pos()), momo.get_collision_rec())) {
+
+                        if (debug_mode) {
+                            momo.stop_movement();
+                        }
+                    }
+                }
+            } break;
         }
 
         EndDrawing();
