@@ -17,7 +17,7 @@ typedef enum GameScreen { MENU, GAME } GameScreen;
 // Default scene set to the main menu
 GameScreen currentScreen = MENU;
 
-std::string momo_version = "0.0.8"; // Game version
+std::string momo_version = "0.0.9"; // Game version
 const int width{1280}; // Window width
 const int height{720}; // Window height
 const char* title = "Momo's Quest"; // Window title
@@ -53,7 +53,7 @@ void game_loop(bool debug_mode) {
     
     SetTargetFPS(60); // Sets the frames per second
 
-    printf("\nRunning Momo's Quest v%s", momo_version.c_str());
+    printf("\nRunning Momo's Quest v%s\n", momo_version.c_str());
 
     // Checks if the window is open/closed
     while (!WindowShouldClose()) {
@@ -87,7 +87,7 @@ void game_loop(bool debug_mode) {
                     
                     if (debug_mode) {
                         momo.stop_movement();
-                        MomoWarning("OUT OF BOUNDS! :O\n");
+                        MomoWarning("OUT OF BOUNDS!\n");
                     }
                 }
 
@@ -123,12 +123,10 @@ int main(int argc, char* argv[]) {
         if (!strcmp(argv[1], "-d")) {
             MomoInfo("Running in DEBUG mode!");
             game_loop(true);
-
         } else {
             MomoError("Please provide the correct argument (-d) or run without any arguments");
             return -1;
         }
-    
     } else {
         game_loop(false);
     }

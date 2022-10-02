@@ -30,9 +30,9 @@ void Momo::tick(float delta_time) {
         if (k_speed < 10.0) {
             k_speed += 0.5;
 
-            if (debug_mode(true)) {
-                Momo::MomoInfoFloat(k_speed);
-            }
+            // if (debug_mode(true)) {
+            //     Momo::MomoInfoFloat(k_speed);
+            // }
         }
 
     } else {

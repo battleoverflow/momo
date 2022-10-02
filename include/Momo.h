@@ -15,34 +15,10 @@ class Momo {
         void stop_movement();
         void unload_textures();
         Rectangle get_collision_rec();
-        bool debug_mode(bool debug_mode) {
-
-            // I'm so sorry for anyone who sees this debug_mode()
-            // TODO: Fix this - doesn't properly log debug methods (this is really only useful sometimes)
-            int argc{};
-            char* argv[2];
-
-            if (argc == 2) {
-                if (!strcmp(argv[1], "-d")) {
-                    debug_mode = true;
-                } else {
-                    return -1;
-                }
-            
-            } else {
-                debug_mode = false;
-            }
-
-            return debug_mode;
-        }
         
-        void MomoInfoFloat(float debug_name) {
-            printf("Momo's Quest [INFO_FLOAT]: %f\n", debug_name);
-        }
-
-        void MomoInfoInt(int debug_name) {
-            printf("Momo's Quest [INFO_INT]: %i\n", debug_name);
-        }
+        // void MomoInfoFloat(float debug_name) {
+        //     printf("Momo's Quest [INFO_FLOAT]: %f\n", debug_name);
+        // }
     private:
         Texture2D momo_state{LoadTexture("src/textures/player/Idle.png")};
         Texture2D momo_idle{LoadTexture("src/textures/player/Idle.png")};

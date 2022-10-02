@@ -41,5 +41,4 @@
 
 # Extra Hidden Dirs/Files (Temp)
 vendor/
-enemies/
 Makefile
