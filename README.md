@@ -3,6 +3,8 @@ Momo's Quest is a C++ game using raylib (inspired by Nene's Quest from New Game!
 
 Momo's Quest is a short story about an adventurer who wanders into the woods and encounters a horrifying BOSS battle! She'll have to battle this boss with all her might, but in the end, it's up to the player if she wins or loses. Good luck!
 
+<img src=".github/assets/banner.png" alt="Banner of Momo's Quest" />
+
 If you would like to build the code from source, you can download the Makefile by running the bash script:
 ```bash
 ./download.sh
