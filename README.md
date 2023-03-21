@@ -1,9 +1,9 @@
 # Momo's Quest
-Momo's Quest is a C++ game using raylib (inspired by Nene's Quest from New Game!)
+Momo's Quest is a C++ game using raylib!
 
 Momo's Quest is a short story about an adventurer who wanders into the woods and encounters a horrifying BOSS battle! She'll have to battle this boss with all her might, but in the end, it's up to the player if she wins or loses. Good luck!
 
-<img src=".github/assets/banner.png" alt="Banner of Momo's Quest" />
+<img src="https://raw.githubusercontent.com/azazelm3dj3d/momos-quest/main/.github/assets/banner.png" alt="Banner of Momo's Quest" />
 
 If you would like to build the code from source, you can download the Makefile by running the bash script:
 ```bash
@@ -40,11 +40,10 @@ Example (Windows - Debug):
 }
 ```
 
-NOTES
-- The map does not currently have boundaries, so feel free to run off the map if you feel like it
+NOTE: The map does not currently have boundaries, so feel free to run off the map if you feel like it
 
 ## Resources
-All sprites and art were provided by the following:
+All resources were provided by the following:
 - [LuizMelo](https://luizmelo.itch.io/) - Charcter Sprites
 - [Elthen](https://elthen.itch.io/) - Map Tileset
-- [Hifumi1337](https://github.com/Hifumi1337) - Background/Code
+- [azazelm3dj3d](https://github.com/azazelm3dj3d) - Background/Code
