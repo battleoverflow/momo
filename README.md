@@ -5,42 +5,16 @@ Momo's Quest is a short story about an adventurer who wanders into the woods and
 
 <img src="https://raw.githubusercontent.com/azazelm3dj3d/momos-quest/main/.github/assets/banner.png" alt="Banner of Momo's Quest" />
 
-If you would like to build the code from source, you can download the Makefile by running the bash script:
+The only requirement is to make sure `raylib` is installed on your system. If running macOS or Linux, you can use `brew`, but if you're running Windows, you may need to download the appropiate resources and update the `.vscode/*.json` files to set the directory for building/running.
+
+Example:
 ```bash
-./download.sh
+brew install raylib
 ```
 
-You will also need to setup your `.vscode` tasks to build the project. This can be done multiple ways, but I just created some quick tasks to generate an executable while testing. This was more a personal project, so no real documentation will be created, but if you would like to play the finished game, feel free to check out the releases on GitHub.
+This was just a project I've been messing with over the past few months when I had a few minutes, so I wouldn't expect too many updates moving forward. Feel free to download the executable in the releases to play or build from source using the `.vscode/*` configuration.
 
-Example (Windows - Debug):
-
-`tasks.json`
-```json
-{
-    "tasks": [
-        {
-            "label": "build debug",
-            "type": "process",
-            "command": "make",
-            "args": [
-                "PLATFORM=PLATFORM_DESKTOP",
-                "BUILD_MODE=DEBUG"
-            ],
-            "windows": {
-                "command": "C:/raylib/w64devkit/bin/mingw32-make.exe",
-                "args": [
-                    "RAYLIB_PATH=C:/raylib/raylib",
-                    "PROJECT_NAME=${fileBasenameNoExtension}",
-                    "OBJS=src/*.cpp",
-                    "BUILD_MODE=DEBUG"
-                ]
-            }
-        }
-    ]
-}
-```
-
-NOTE: The map does not currently have boundaries, so feel free to run off the map if you feel like it
+NOTE: The map does not currently have boundaries, so feel free to run off the map
 
 ## Resources
 All resources were provided by the following:
