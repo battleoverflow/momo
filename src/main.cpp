@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "include/Momo.h"
+#include "include/Boss.h"
 #include "include/Log.h"
 #include "include/Environment.h"
 
@@ -12,12 +13,12 @@
     TODO: FIX COLLISION DETECTION
 */
 
-typedef enum GameScreen { MENU, GAME } GameScreen;
+typedef enum GameScreen { MENU, GAME, GAME_OVER } GameScreen;
 
 // Default scene set to the main menu
 GameScreen currentScreen = MENU;
 
-std::string momo_version = "0.0.9"; // Game version
+std::string momo_version = "0.0.10"; // Game version
 const int width{1280}; // Window width
 const int height{720}; // Window height
 const char* title = "Momo's Quest"; // Window title
@@ -27,6 +28,18 @@ void main_menu() {
     DrawText(momo_version.c_str(), 20, 600, 30, MAROON);
     DrawText(title, 20, 650, 40, MAROON);
     DrawText("Press Enter or Space to PLAY", width / 6, height / 3, 50, MAROON);
+
+    // Changes the scene when the enter key or space key is pressed
+    if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE)) {
+        currentScreen = GAME;
+    }
+}
+
+void game_over() {
+    ClearBackground(BLACK);
+    DrawText(momo_version.c_str(), 20, 600, 30, MAROON);
+    DrawText(title, 20, 650, 40, MAROON);
+    DrawText("Game Over", width / 6, height / 3, 50, MAROON);
 
     // Changes the scene when the enter key or space key is pressed
     if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE)) {
@@ -50,6 +63,16 @@ void game_loop(bool debug_mode) {
         Environment{Vector2{1050.0f, 500.0f}, LoadTexture("src/textures/environment/Log.png")}, // Log location + texture load
         Environment{Vector2{1800.0f, 2000.0f}, LoadTexture("src/textures/environment/Rock.png")} // Rock location + texture load
     };
+
+    Boss boss {
+        Vector2{},
+        LoadTexture("src/textures/enemies/Idle.png"),
+        LoadTexture("src/textures/enemies/Move.png"),
+        LoadTexture("src/textures/enemies/Death.png"),
+    };
+
+    // Sets the player as the target
+    boss.set_target(&momo);
     
     SetTargetFPS(60); // Sets the frames per second
 
@@ -100,6 +123,12 @@ void game_loop(bool debug_mode) {
                         }
                     }
                 }
+
+                boss.tick(GetFrameTime());
+
+            } break;
+            case GAME_OVER: {
+                game_over();
             } break;
         }
 
