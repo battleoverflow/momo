@@ -1,3 +1,9 @@
+/*
+    Project: Momo's Quest (https://github.com/azazelm3dj3d/momo)
+    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    License: MIT
+*/
+
 #include "include/BaseCharacter.h"
 #include "raymath.h"
 
@@ -54,8 +60,9 @@ void BaseCharacter::tick(float delta_time) {
     }
 
     if (!get_alive()) {
-        state = dead;
+        state = death;
         player_sprite_count = 10.0f;
+        enemy_sprite_count = 5.0f;
     }
 
     velocity = {};
@@ -72,5 +79,5 @@ void BaseCharacter::unload_textures() {
     UnloadTexture(idle);
     UnloadTexture(run);
     UnloadTexture(attack);
-    UnloadTexture(dead);
+    UnloadTexture(death);
 }

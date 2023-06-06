@@ -1,9 +1,20 @@
-#pragma once
+/*
+    Project: Momo's Quest (https://github.com/azazelm3dj3d/momo)
+    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    License: MIT
+*/
 
-#include <iostream>
+#ifndef LOG_H
+    #define LOG_H
 
-std::string error_name;
+    #pragma once
 
-#define MomoInfo(error_name) { printf("Momo's Quest [INFO]: %s\n", error_name); }
-#define MomoWarning(error_name) { printf("Momo's Quest [WARNING]: %s\n", error_name); }
-#define MomoError(error_name) { printf("Momo's Quest [ERROR]: %s\n", error_name); }
+    #include <iostream>
+
+    std::string error_name;
+
+    #define MomoInfo(error_name) { printf("Momo's Quest [INFO]: %s\n", error_name); }
+    #define MomoWarning(error_name) { printf("Momo's Quest [WARNING]: %s\n", error_name); }
+    #define MomoError(error_name) { printf("Momo's Quest [ERROR]: %s\n", error_name); }
+
+#endif

@@ -1,3 +1,9 @@
+/*
+    Project: Momo's Quest (https://github.com/azazelm3dj3d/momo)
+    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    License: MIT
+*/
+
 
 #ifndef BASE_CHARACTER_H
     #define BASE_CHARACTER_H
@@ -17,11 +23,11 @@
             void set_alive(bool is_alive) { alive = is_alive; }
         
         protected:
-            Texture2D state{LoadTexture("src/textures/player/Idle.png")};
-            Texture2D idle{LoadTexture("src/textures/player/Idle.png")};
-            Texture2D run{LoadTexture("src/textures/player/Run.png")};
-            Texture2D attack{LoadTexture("src/textures/player/Attack.png")};
-            Texture2D dead{LoadTexture("src/textures/player/Death.png")};
+            Texture2D state{LoadTexture("assets/textures/player/Idle.png")};
+            Texture2D idle{LoadTexture("assets/textures/player/Idle.png")};
+            Texture2D run{LoadTexture("assets/textures/player/Run.png")};
+            Texture2D attack{LoadTexture("assets/textures/player/Attack.png")};
+            Texture2D death{LoadTexture("assets/textures/player/Death.png")};
             Vector2 world_pos{530.0, 1500.0}; // "Camera" attached to the player to allow movement (moves map, not player)
             Vector2 world_pos_last_frame{}; // Checks for last frame to check map boundaries and collisions
 
@@ -43,7 +49,6 @@
         
         private:
             bool alive{true};
-    
     };
 
 #endif

@@ -9,6 +9,9 @@
 		"**/*.exe": true,
 	},
 	"files.associations": {
-		"ios": "cpp"
+		"ios": "cpp",
+		"iosfwd": "cpp",
+		"string": "cpp",
+		"__node_handle": "cpp"
 	}
 }

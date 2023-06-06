@@ -1,3 +1,9 @@
+/*
+    Project: Momo's Quest (https://github.com/azazelm3dj3d/momo)
+    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    License: MIT
+*/
+
 #ifndef MOMO_H
     #define MOMO_H
 

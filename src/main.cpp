@@ -1,3 +1,9 @@
+/*
+    Project: Momo's Quest (https://github.com/azazelm3dj3d/momo)
+    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    License: MIT
+*/
+
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -13,7 +19,7 @@
     TODO: FIX COLLISION DETECTION
 */
 
-typedef enum GameScreen { MENU, GAME, GAME_OVER } GameScreen;
+typedef enum GameScreen { MENU, GAME } GameScreen;
 
 // Default scene set to the main menu
 GameScreen currentScreen = MENU;
@@ -36,15 +42,9 @@ void main_menu() {
 }
 
 void game_over() {
-    ClearBackground(BLACK);
     DrawText(momo_version.c_str(), 20, 600, 30, MAROON);
     DrawText(title, 20, 650, 40, MAROON);
     DrawText("Game Over", width / 6, height / 3, 50, MAROON);
-
-    // Changes the scene when the enter key or space key is pressed
-    if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE)) {
-        currentScreen = GAME;
-    }
 }
 
 void game_loop(bool debug_mode) {
@@ -52,7 +52,7 @@ void game_loop(bool debug_mode) {
     InitWindow(width, height, title);
 
     // Loads map texture
-    Texture2D map = LoadTexture("src/map/map.png");
+    Texture2D map = LoadTexture("assets/map.png");
 
     Vector2 map_pos{0.0, 0.0}; // Sets the map position
     const float map_scale{3.0}; // Sets the map's scale size (-smaller, +bigger)
@@ -60,15 +60,16 @@ void game_loop(bool debug_mode) {
     Momo momo{width, height};
 
     Environment environment[2] {
-        Environment{Vector2{1050.0f, 500.0f}, LoadTexture("src/textures/environment/Log.png")}, // Log location + texture load
-        Environment{Vector2{1800.0f, 2000.0f}, LoadTexture("src/textures/environment/Rock.png")} // Rock location + texture load
+        Environment{Vector2{1050.0f, 500.0f}, LoadTexture("assets/textures/environment/Log.png")}, // Log location + texture load
+        Environment{Vector2{1800.0f, 2000.0f}, LoadTexture("assets/textures/environment/Rock.png")} // Rock location + texture load
     };
 
     Boss boss {
         Vector2{},
-        LoadTexture("src/textures/enemies/Idle.png"),
-        LoadTexture("src/textures/enemies/Move.png"),
-        LoadTexture("src/textures/enemies/Death.png"),
+        LoadTexture("assets/textures/enemies/Idle.png"),
+        LoadTexture("assets/textures/enemies/Move.png"),
+        LoadTexture("assets/textures/enemies/Attack.png"),
+        LoadTexture("assets/textures/enemies/Death.png"),
     };
 
     // Sets the player as the target
@@ -105,9 +106,15 @@ void game_loop(bool debug_mode) {
                     EndDrawing();
                     continue;
                 } else {
-                    std::string player_health = "Health: ";
+                    std::string player_health = "Player Health: ";
                     player_health.append(std::to_string(momo.get_health()), 0, 5);
                     DrawText(player_health.c_str(), 55.0f, 45.0f, 40, RED);
+                }
+
+                if (boss.get_alive()) {
+                    std::string enemy_health = "Enemy Health: ";
+                    enemy_health.append(std::to_string(boss.get_health()), 0, 5);
+                    DrawText(enemy_health.c_str(), 55.0f, 95.0f, 40, RED);
                 }
 
                 momo.tick(GetFrameTime());
@@ -127,7 +134,6 @@ void game_loop(bool debug_mode) {
                 // Environment collisions
                 for (auto env : environment) {
                     if (CheckCollisionRecs(env.get_collision_rec(momo.get_world_pos()), momo.get_collision_rec())) {
-
                         if (debug_mode) {
                             momo.stop_movement();
                         }
@@ -138,13 +144,11 @@ void game_loop(bool debug_mode) {
 
                 if (IsKeyDown(KEY_Z)) {
                     if (CheckCollisionRecs(boss.get_collision_rec(), momo.get_collision_rec())) {
-                        boss.set_alive(false);
+                        float damage = 20.0f;
+                        boss.take_damage(damage * GetFrameTime());
                     }
                 }
 
-            } break;
-            case GAME_OVER: {
-                game_over();
             } break;
         }
 
