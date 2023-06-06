@@ -100,6 +100,16 @@ void game_loop(bool debug_mode) {
                     env.render(momo.get_world_pos());
                 }
 
+                if (!momo.get_alive()) {
+                    game_over();
+                    EndDrawing();
+                    continue;
+                } else {
+                    std::string player_health = "Health: ";
+                    player_health.append(std::to_string(momo.get_health()), 0, 5);
+                    DrawText(player_health.c_str(), 55.0f, 45.0f, 40, RED);
+                }
+
                 momo.tick(GetFrameTime());
 
                 // Check for map boundaries
@@ -125,6 +135,12 @@ void game_loop(bool debug_mode) {
                 }
 
                 boss.tick(GetFrameTime());
+
+                if (IsKeyDown(KEY_Z)) {
+                    if (CheckCollisionRecs(boss.get_collision_rec(), momo.get_collision_rec())) {
+                        boss.set_alive(false);
+                    }
+                }
 
             } break;
             case GAME_OVER: {

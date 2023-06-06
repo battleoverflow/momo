@@ -17,11 +17,12 @@
             virtual Vector2 get_screen_pos() override;
             float get_health() const { return health; }
             void take_damage(float damage);
-        
+            Rectangle get_weapon_collision_rec() { return weapon_collision_rec; }
         private:
             int window_width{};
             int window_height{};
             float health{100.0f};
+            Rectangle weapon_collision_rec{};
     };
 
 #endif

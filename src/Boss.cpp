@@ -16,9 +16,7 @@ Boss::Boss(Vector2 pos, Texture2D idle_tex, Texture2D run_tex, Texture2D death_t
 
 void Boss::tick(float delta_time) {
 
-    if (!get_alive()) {
-        return;
-    }
+    if (!get_alive()) { return; }
 
     // Locate the player
     velocity = Vector2Subtract(target->get_screen_pos(), get_screen_pos());
