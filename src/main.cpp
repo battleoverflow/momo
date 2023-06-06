@@ -24,7 +24,7 @@ typedef enum GameScreen { MENU, GAME } GameScreen;
 // Default scene set to the main menu
 GameScreen currentScreen = MENU;
 
-std::string momo_version = "0.0.10"; // Game version
+std::string momo_version = "0.1.0"; // Game version
 const int width{1280}; // Window width
 const int height{720}; // Window height
 const char* title = "Momo's Quest"; // Window title
