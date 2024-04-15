@@ -6,7 +6,7 @@ Momo's Quest is a short story about an adventurer who wanders into the woods and
 
 P.S. This game is terrible and I'm sorry. I may come back to it one day, but right now, it's this
 
-<img src="https://raw.githubusercontent.com/azazelm3dj3d/momo/main/.github/assets/banner.png" alt="Banner of Momo's Quest" />
+<img src="https://raw.githubusercontent.com/battleoverflow/momo/main/.github/assets/banner.png" alt="Banner of Momo's Quest" />
 
 The only requirement is to make sure `raylib` is installed on your system. If running macOS, you can use `brew`, but if you're running Windows/Linux, you may need to download the appropriate resources and update the `.vscode/*.json` files to set the directory for building/running.
 
@@ -23,4 +23,4 @@ NOTE: The map does not currently have boundaries, so feel free to run off the ma
 All resources were provided by the following:
 - [LuizMelo](https://luizmelo.itch.io/) - Charcter Sprites
 - [Elthen](https://elthen.itch.io/) - Map Tileset
-- [azazelm3dj3d](https://github.com/azazelm3dj3d) - Background/Code
+- [battleoverflow](https://github.com/battleoverflow) - Background/Code

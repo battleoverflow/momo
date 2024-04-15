@@ -1,6 +1,6 @@
 /*
-    Project: Momo's Quest (https://github.com/azazelm3dj3d/momo)
-    Author: azazelm3dj3d (https://github.com/azazelm3dj3d)
+    Project: Momo's Quest (https://github.com/battleoverflow/momo)
+    Author: battleoverflow (https://github.com/battleoverflow)
     License: MIT
 */
 
